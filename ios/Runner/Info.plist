@@ -45,5 +45,14 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- ✅ Add location & motion usage descriptions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to measure how far you walk.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We use your location to measure distance even when the app is not active.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>We use motion data to improve distance/step accuracy.</string>
+
 </dict>
 </plist>
