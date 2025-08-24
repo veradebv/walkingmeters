@@ -66,8 +66,21 @@ class WalkController extends ChangeNotifier {
       _sub = null;
       _timer?.cancel();
       _timer = null;
+
+      // Save to history (only if distance > 0)
+      if (_distanceMeters > 0) {
+      // We need context, so best approach: let HomeScreen call HistoryController
+      // or pass a callback. Simplest: return the distance.
+      }
       _state = WalkState.idle;
       notifyListeners();
+    }
+
+    // Add this helper
+    double finishAndGetDistance() {
+      final result = _distanceMeters;
+      stop();
+      return result;
     }
 
     void _onPosition(Position pos) {

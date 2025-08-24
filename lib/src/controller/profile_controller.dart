@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import '../model/profile_model.dart';
+import 'package:walkingmeters/src/model/profile_model.dart';
 
 class ProfileController extends ChangeNotifier {
   late Box<Profile> _box;

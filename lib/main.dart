@@ -6,30 +6,27 @@ import 'package:walkingmeters/src/model/profile_model.dart';
 import 'package:walkingmeters/src/model/walk_session_model.dart';
 import 'src/controller/walk_controller.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'src/controller/walk_controller.dart';
-import 'src/controller/profile_controller.dart';
-import 'src/model/walk_session_model.dart';
 import 'src/ui/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialized Hive
+  // Initialize Hive
   await Hive.initFlutter();
 
   // Register Adapters
   Hive.registerAdapter(ProfileAdapter());
   Hive.registerAdapter(WalkSessionAdapter());
 
-  // Open Boxes (like databases)
+  // Open Boxes (like local databases)
   await Hive.openBox<Profile>('profileBox');
   await Hive.openBox<WalkSession>('historyBox');
-  
+
   runApp(const WalkingApp());
 }
 
 class WalkingApp extends StatelessWidget {
-  const WalkingApp ({ super.key });
+  const WalkingApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +42,8 @@ class WalkingApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0EA5E9)),
           useMaterial3: true,
         ),
+        // 👇 This was missing
+        home: const HomeScreen(),
       ),
     );
   }
