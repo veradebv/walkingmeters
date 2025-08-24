@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
-import 'location_service.dart';
+import '../location_service.dart';
 
 enum WalkState { idle, running, paused }
 

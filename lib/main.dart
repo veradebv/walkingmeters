@@ -1,9 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'src/walk_controller.dart';
+import 'package:walkingmeters/src/controller/history_controller.dart';
+import 'package:walkingmeters/src/controller/profile_controller.dart';
+import 'package:walkingmeters/src/model/profile_model.dart';
+import 'package:walkingmeters/src/model/walk_session_model.dart';
+import 'src/controller/walk_controller.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'src/controller/walk_controller.dart';
+import 'src/controller/profile_controller.dart';
+import 'src/model/walk_session_model.dart';
+import 'src/ui/home_screen.dart';
 
-void main () {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialized Hive
+  await Hive.initFlutter();
+
+  // Register Adapters
+  Hive.registerAdapter(ProfileAdapter());
+  Hive.registerAdapter(WalkSessionAdapter());
+
+  // Open Boxes (like databases)
+  await Hive.openBox<Profile>('profileBox');
+  await Hive.openBox<WalkSession>('historyBox');
+  
   runApp(const WalkingApp());
 }
 
@@ -12,8 +33,12 @@ class WalkingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => WalkController(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WalkController()),
+        ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider(create: (_) => HistoryController()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
